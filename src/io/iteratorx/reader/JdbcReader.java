@@ -18,31 +18,31 @@ import org.junit.Assert;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Throwables;
 
-public class DBReader {
-	private static final Logger logger = Logger.getLogger(DBReader.class.getName());
+public class JdbcReader {
+	private static final Logger logger = Logger.getLogger(JdbcReader.class.getName());
 
 	private final DataSource dataSource;
 
 	protected int batchSize = 1000;
 	protected int queryTimeout = 60 * 60;
 
-	protected JSONObject columnMetaData = null;
+	private JSONObject columnMetaData = null;
 
 	private Connection conn = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
-	public DBReader(final DataSource dataSource) {
+	public JdbcReader(final DataSource dataSource) {
 		Assert.assertNotNull(dataSource);
 		this.dataSource = dataSource;
 	}
 
-	public DBReader setBatchSize(final int batchSize) {
+	public JdbcReader setBatchSize(final int batchSize) {
 		this.batchSize = batchSize;
 		return this;
 	}
 
-	public DBReader setQueryTimeout(final int queryTimeout) {
+	public JdbcReader setQueryTimeout(final int queryTimeout) {
 		this.queryTimeout = queryTimeout;
 		return this;
 	}
