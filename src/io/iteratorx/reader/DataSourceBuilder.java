@@ -55,7 +55,7 @@ public abstract class DataSourceBuilder {
 
 				@Override
 				public Connection getConnection() throws SQLException {
-					return getConnection(properties.getProperty("username"), properties.getProperty("password"));
+					return getConnection(properties.getProperty("user"), properties.getProperty("password"));
 				}
 
 				@Override
