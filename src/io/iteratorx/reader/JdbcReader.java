@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 import org.junit.Assert;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.base.Throwables;
 
 public class JdbcReader {
 	private static final Logger logger = Logger.getLogger(JdbcReader.class.getName());
@@ -42,8 +41,8 @@ public class JdbcReader {
 		return this;
 	}
 
-	public JdbcReader setQueryTimeout(final int queryTimeout) {
-		this.queryTimeout = queryTimeout;
+	public JdbcReader setQueryTimeout(final int seconds) {
+		this.queryTimeout = seconds;
 		return this;
 	}
 
@@ -131,27 +130,7 @@ public class JdbcReader {
 	}
 
 	protected void close(final ResultSet rs, final Statement stmt, final Connection conn) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (final SQLException e) {
-				logger.warning(Throwables.getStackTraceAsString(e));
-			}
-		}
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (final SQLException e) {
-				logger.warning(Throwables.getStackTraceAsString(e));
-			}
-		}
-		if (conn != null) {
-			try {
-				conn.close();
-			} catch (final SQLException e) {
-				logger.warning(Throwables.getStackTraceAsString(e));
-			}
-		}
+		DbUtils.close(rs, stmt, conn);
 	}
 
 	protected JSONObject parseColumnMetaData(final ResultSetMetaData resultSetMetaData) throws SQLException {
