@@ -1,8 +1,9 @@
 # IteratorX: simplest iterator for IO
 
 ## 	
+	// create reader
 	final JdbcReader jdbcReader = new JdbcReader(
-			new JdbcDataSourceBuilder().setUrl("jdbc:postgresql://10.23.112.2:3333/dbname").setUser("username")
+			new JdbcDataSourceBuilder().setUrl("jdbc:postgresql://ip:port/dbname").setUser("username")
 					.setPassword("password").build());
 	
 	// by iterator
