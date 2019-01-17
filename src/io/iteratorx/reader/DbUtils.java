@@ -31,8 +31,12 @@ public class DbUtils {
 			return "org.apache.ignite.IgniteJdbcThinDriver";
 		} else if (url.startsWith("jdbc:derby")) {
 			return "org.apache.derby.jdbc.EmbeddedDriver";
+		} else if (url.startsWith("jdbc:sqlite")) {
+			return "org.sqlite.JDBC";
+		} else if (url.startsWith("jdbc:hive2")) {
+			return "org.apache.hive.jdbc.HiveDriver";
 		} else {
-			return null;
+			throw new IllegalStateException();
 		}
 	}
 
