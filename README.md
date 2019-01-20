@@ -7,8 +7,8 @@ Read each jdbc Table Row into JSONObject iterably.
 ```	
 	// create jdbc reader
 	final JdbcReader jdbcReader = new JdbcReader(
-			new JdbcDataSourceBuilder().setUrl("jdbc:postgresql://10.23.112.2:3333/dbname").setUser("username")
-					.setPassword("password").build());
+			new JdbcDataSourceBuilder().setUrl("jdbc:postgresql://10.23.112.2:3333/dbname")
+					.setUser("username").setPassword("password").build());
 	
 	// fetch by iterable
 	for (final JSONObject item : jdbcReader.read("select * from tablename")) {
