@@ -16,7 +16,7 @@ Read each jdbc Table Row into JSONObject iterably.
 	}
 	
 	// fetch all into one collection
-	for (final JSONObject item : jdbcReader.readAll("select * from tablename")) {
+	for (final JSONObject item : jdbcReader.readAll("select * from tablename where id = ?", param1)) {
 		System.err.println(item);
 	}
 ```
