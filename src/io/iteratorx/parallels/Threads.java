@@ -11,11 +11,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
-import com.alibaba.fastjson.JSONObject;
-
 import io.iteratorx.Consumer;
 
-public class Threads implements Parallels {
+public class Threads<T> implements Parallels {
 	private static final Logger logger = Logger.getLogger(Threads.class.getName());
 
 	public static <T> long forEach(final int parallelism, final Iterator<T> iterator, final Consumer<T> onNext)
@@ -68,58 +66,58 @@ public class Threads implements Parallels {
 		return count;
 	}
 
-	public static Threads create(final Iterator<JSONObject> iterator) throws Exception {
-		return new Threads(iterator);
+	public static <T> Threads<T> create(final Iterator<T> iterator) throws Exception {
+		return new Threads<T>(iterator);
 	}
 
-	public static Threads create(final Iterator<JSONObject> iterator, final int parallelism) throws Exception {
-		return new Threads(iterator, DefaultParallelism);
+	public static <T> Threads<T> create(final Iterator<T> iterator, final int parallelism) throws Exception {
+		return new Threads<T>(iterator, DefaultParallelism);
 	}
 
-	public static Threads create(final Iterable<JSONObject> iterable) throws Exception {
-		return new Threads(iterable);
+	public static <T> Threads<T> create(final Iterable<T> iterable) throws Exception {
+		return new Threads<T>(iterable);
 	}
 
-	public static Threads create(final Iterable<JSONObject> iterable, final int parallelism) throws Exception {
-		return new Threads(iterable, DefaultParallelism);
+	public static <T> Threads<T> create(final Iterable<T> iterable, final int parallelism) throws Exception {
+		return new Threads<T>(iterable, DefaultParallelism);
 	}
 
-	private final Iterator<JSONObject> iterator;
+	private final Iterator<T> iterator;
 	private final int parallelism;
 
-	public Threads(final Iterator<JSONObject> iterator) {
+	public Threads(final Iterator<T> iterator) {
 		this(iterator, DefaultParallelism);
 	}
 
-	public Threads(final Iterator<JSONObject> iterator, final int parallelism) {
+	public Threads(final Iterator<T> iterator, final int parallelism) {
 		this.iterator = iterator;
 		this.parallelism = parallelism;
 	}
 
-	public Threads(final Iterable<JSONObject> iterable) {
+	public Threads(final Iterable<T> iterable) {
 		this(iterable.iterator());
 	}
 
-	public Threads(final Iterable<JSONObject> iterable, final int parallelism) {
+	public Threads(final Iterable<T> iterable, final int parallelism) {
 		this(iterable.iterator(), parallelism);
 	}
 
-	public long forEach(final Consumer<JSONObject> onNext) throws Exception {
+	public long forEach(final Consumer<T> onNext) throws Exception {
 		final long count = forEach(this.parallelism, this.iterator, onNext);
 
 		logger.info("OK finished! count = " + count);
 		return count;
 	}
 
-	public long forBatch(final Consumer<List<JSONObject>> onNext) throws Exception {
+	public long forBatch(final Consumer<List<T>> onNext) throws Exception {
 		return forBatch(DefaultBatchSize, onNext);
 	}
 
-	public long forBatch(final int batchSize, final Consumer<List<JSONObject>> onNext) throws Exception {
+	public long forBatch(final int batchSize, final Consumer<List<T>> onNext) throws Exception {
 		final AtomicLong count = new AtomicLong();
-		final Iterator<List<JSONObject>> groupIterator = new Iterator<List<JSONObject>>() {
+		final Iterator<List<T>> groupIterator = new Iterator<List<T>>() {
 
-			final List<JSONObject> group = new ArrayList<>();
+			final List<T> group = new ArrayList<>();
 
 			@Override
 			public boolean hasNext() {
@@ -127,9 +125,9 @@ public class Threads implements Parallels {
 			}
 
 			@Override
-			public List<JSONObject> next() {
+			public List<T> next() {
 				do {
-					final JSONObject item = Threads.this.iterator.next();
+					final T item = Threads.this.iterator.next();
 					group.add(item);
 					count.incrementAndGet();
 
