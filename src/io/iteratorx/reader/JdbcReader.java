@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +15,8 @@ import javax.sql.DataSource;
 import org.junit.Assert;
 
 import com.alibaba.fastjson.JSONObject;
+
+import io.iteratorx.AutoCloseableIterator;
 
 public class JdbcReader {
 	private static final Logger logger = Logger.getLogger(JdbcReader.class.getName());
@@ -77,7 +78,7 @@ public class JdbcReader {
 			columnMetaData = parseColumnMetaData(rs.getMetaData());
 
 		} catch (final SQLException e) {
-			close(rs, ps, conn);
+			DbUtils.close(rs, ps, conn);
 
 			throw new RuntimeException(e);
 		}
@@ -87,20 +88,29 @@ public class JdbcReader {
 
 			@Override
 			public Iterator<JSONObject> iterator() {
-				return new Iterator<JSONObject>() {
+				return new AutoCloseableIterator<JSONObject>() {
+					private static final long serialVersionUID = -7178131452993168194L;
+
+					boolean hasNext = true;
 
 					@Override
 					public boolean hasNext() {
+						if (hasNext == false) {
+							// already closed
+
+							return false;
+						}
+
 						try {
-							final boolean hasNext = rs.next();
+							hasNext = rs.next();
 							if (hasNext == false) {
-								close(rs, ps, conn);
+								close();
 							}
 
 							return hasNext;
 
 						} catch (final SQLException e) {
-							close(rs, ps, conn);
+							close();
 
 							throw new RuntimeException(e);
 						}
@@ -117,20 +127,22 @@ public class JdbcReader {
 							return data;
 
 						} catch (final SQLException e) {
-							close(rs, ps, conn);
+							close();
 
 							throw new RuntimeException(e);
 						}
 					}
 
+					@Override
+					public void close() {
+						DbUtils.close(rs, ps, conn);
+						hasNext = false;
+					}
 				};
+
 			}
 		};
 
-	}
-
-	protected void close(final ResultSet rs, final Statement stmt, final Connection conn) {
-		DbUtils.close(rs, stmt, conn);
 	}
 
 	protected JSONObject parseColumnMetaData(final ResultSetMetaData resultSetMetaData) throws SQLException {
