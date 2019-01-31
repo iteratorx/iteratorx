@@ -79,11 +79,6 @@ We also support RxJava engine, the default parallelism is the 3 times of availab
 Known issues: the RxJava will not quit automatically when processing data finished, we will try to fix this bug.
 
 ```	
-	// create jdbc reader
-	final JdbcReader jdbcReader = new JdbcReader(
-			new JdbcDataSourceBuilder().setUrl("jdbc:postgresql://10.23.112.2:3333/dbname")
-					.setUser("username").setPassword("password").build());
-
 	// process each item parallely using RxJava engine
 	RxJava.from(jdbcReader.read("select * from tablename")).forEach(item -> {
 		System.err.println(item);
