@@ -68,19 +68,19 @@ public class Threads<T> implements Parallels {
 		return count;
 	}
 
-	public static <T> Threads<T> create(final Iterator<T> iterator) throws Exception {
+	public static <T> Threads<T> from(final Iterator<T> iterator) throws Exception {
 		return new Threads<T>(iterator);
 	}
 
-	public static <T> Threads<T> create(final Iterator<T> iterator, final int parallelism) throws Exception {
+	public static <T> Threads<T> from(final Iterator<T> iterator, final int parallelism) throws Exception {
 		return new Threads<T>(iterator, DefaultParallelism);
 	}
 
-	public static <T> Threads<T> create(final Iterable<T> iterable) throws Exception {
+	public static <T> Threads<T> from(final Iterable<T> iterable) throws Exception {
 		return new Threads<T>(iterable);
 	}
 
-	public static <T> Threads<T> create(final Iterable<T> iterable, final int parallelism) throws Exception {
+	public static <T> Threads<T> from(final Iterable<T> iterable, final int parallelism) throws Exception {
 		return new Threads<T>(iterable, DefaultParallelism);
 	}
 

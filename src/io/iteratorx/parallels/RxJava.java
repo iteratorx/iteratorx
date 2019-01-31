@@ -20,19 +20,19 @@ public class RxJava<T> implements Parallels {
 		logger.info("OK finished!");
 	}
 
-	public static <T> RxJava<T> create(final Iterator<T> iterator) throws Exception {
+	public static <T> RxJava<T> from(final Iterator<T> iterator) throws Exception {
 		return new RxJava<T>(iterator);
 	}
 
-	public static <T> RxJava<T> create(final Iterator<T> iterator, final int parallelism) throws Exception {
+	public static <T> RxJava<T> from(final Iterator<T> iterator, final int parallelism) throws Exception {
 		return new RxJava<T>(iterator, DefaultParallelism);
 	}
 
-	public static <T> RxJava<T> create(final Iterable<T> iterable) throws Exception {
+	public static <T> RxJava<T> from(final Iterable<T> iterable) throws Exception {
 		return new RxJava<T>(iterable);
 	}
 
-	public static <T> RxJava<T> create(final Iterable<T> iterable, final int parallelism) throws Exception {
+	public static <T> RxJava<T> from(final Iterable<T> iterable, final int parallelism) throws Exception {
 		return new RxJava<T>(iterable, DefaultParallelism);
 	}
 

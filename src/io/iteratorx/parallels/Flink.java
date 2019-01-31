@@ -65,19 +65,19 @@ public class Flink implements Parallels {
 		}).count();
 	}
 
-	public static Flink create(final Iterator<JSONObject> iterator) throws Exception {
+	public static Flink from(final Iterator<JSONObject> iterator) throws Exception {
 		return new Flink(iterator);
 	}
 
-	public static Flink create(final Iterator<JSONObject> iterator, final int parallelism) throws Exception {
+	public static Flink from(final Iterator<JSONObject> iterator, final int parallelism) throws Exception {
 		return new Flink(iterator, DefaultParallelism);
 	}
 
-	public static Flink create(final Iterable<JSONObject> iterable) throws Exception {
+	public static Flink from(final Iterable<JSONObject> iterable) throws Exception {
 		return new Flink(iterable);
 	}
 
-	public static Flink create(final Iterable<JSONObject> iterable, final int parallelism) throws Exception {
+	public static Flink from(final Iterable<JSONObject> iterable, final int parallelism) throws Exception {
 		return new Flink(iterable, DefaultParallelism);
 	}
 

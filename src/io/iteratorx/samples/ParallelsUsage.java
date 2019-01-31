@@ -17,34 +17,55 @@ public class ParallelsUsage {
 				new JdbcDataSourceBuilder().setUrl("jdbc:postgresql://10.23.112.2:3333/dbname").setUser("username")
 						.setPassword("password").build());
 
-		// by multi-threads
-		Threads.create(jdbcReader.read("select * from tablename")).forEach(item -> {
-			System.err.println(item);
-		});
-		Threads.create(jdbcReader.read("select * from tablename")).forBatch(items -> {
-			for (final JSONObject item : items) {
+		// by Threads
+		{
+			// process each item parallelly using thread pool
+			Threads.from(jdbcReader.read("select * from tablename")).forEach(item -> {
 				System.err.println(item);
-			}
-		});
+			});
 
-		// by RxJava
-		RxJava.create(jdbcReader.read("select * from tablename")).forEach(item -> {
-			System.err.println(item);
-		});
-		RxJava.create(jdbcReader.read("select * from tablename")).forBatch(items -> {
-			for (final JSONObject item : items) {
-				System.err.println(item);
-			}
-		});
+			// process batch data parallelly
+			Threads.from(jdbcReader.read("select * from tablename")).forBatch(items -> {
+				for (final JSONObject item : items) {
+					System.err.println(item);
+				}
+			});
+		}
 
 		// by Flink
-		Flink.create(jdbcReader.read("select * from tablename")).forEach(item -> {
-			System.err.println(item);
-		});
-		Flink.create(jdbcReader.read("select * from tablename")).forBatch(items -> {
-			for (final JSONObject item : items) {
+		{
+			// process each item parallelly using Flink engine
+			Flink.from(jdbcReader.read("select * from tablename")).forEach(item -> {
 				System.err.println(item);
-			}
-		});
+			});
+
+			// process batch data parallelly
+			Flink.from(jdbcReader.read("select * from tablename")).forBatch(items -> {
+				for (final JSONObject item : items) {
+					System.err.println(item);
+				}
+			});
+
+			// use DataSet directly to enable all Flink power
+			Flink.from(jdbcReader.read("select * from tablename")).dataSet().distinct().count();
+		}
+
+		// by RxJava
+		{
+			// process each item parallely using RxJava engine
+			RxJava.from(jdbcReader.read("select * from tablename")).forEach(item -> {
+				System.err.println(item);
+			});
+
+			// process batch data parallely
+			RxJava.from(jdbcReader.read("select * from tablename")).forBatch(items -> {
+				for (final JSONObject item : items) {
+					System.err.println(item);
+				}
+			});
+
+			// use Observable directly
+			RxJava.from(jdbcReader.read("select * from tablename")).observable().distinct().count();
+		}
 	}
 }
