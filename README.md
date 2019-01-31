@@ -32,6 +32,8 @@ todo
 
 As we always need to process data in parallel, we support many parallels engines: Threads(ThreadPool), Flink and RxJava.
 
+All parallels engines are support both JSONObject and other parametized type.
+
 ### 2.1. Threads: using ThreadPool to process data in parallel
 
 Fixed-size thread pool are used to process data in multi-threads, the default thread size is the 3 times of available processors.
@@ -51,7 +53,7 @@ Fixed-size thread pool are used to process data in multi-threads, the default th
 ```
 ### 2.2. Flink: using Flink to process data in parallel
 
-Flink can run in both standalone local mode and remote cluster mode, this is fantastic to debug and execute. We prefer using Flink engine to process data in parallel. The default parallelism is the 3 times of available processors.
+Flink can run in both standalone local mode and remote cluster mode, this is fantastic to debug and execute. We prefer using Flink engine to process big data in parallel. The default parallelism is the 3 times of available processors.
 
 ```	
 	// process each item parallelly using Flink engine
@@ -73,6 +75,7 @@ Flink can run in both standalone local mode and remote cluster mode, this is fan
 ### 2.3. RxJava: using RxJava to process data in parallel
 
 We also support RxJava engine, the default parallelism is the 3 times of available processors.
+
 Known issues: the RxJava will not quit automatically when processing data finished, we will try to fix this bug.
 
 ```	
