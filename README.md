@@ -28,11 +28,12 @@ Read each jdbc Table Row into JSONObject iteratively.
 ### 1.2. FileReader: read file content lines into json objects
 todo
 
+
 ## 2. Parallels: Threads, Flink, RxJava
 
 As we always need to process data in parallel, we support many parallels engines: Threads(ThreadPool), Flink and RxJava.
 
-All parallels engines are support both JSONObject and other Parametized types, just try it.
+NOTICE: all parallels engines support not only JSONObject but other Parametized types, just try it.
 
 ### 2.1. Threads: using ThreadPool to process data in parallel
 
