@@ -30,10 +30,12 @@ public class Threads<T> implements Parallels {
 			final T item = iterator.next();
 			count++;
 
+			// for back pressure
 			while (queue.size() >= parallelism * 3) {
 				Thread.sleep(10);
 			}
 
+			// submit
 			executorService.submit(new Runnable() {
 				@Override
 				public void run() {
