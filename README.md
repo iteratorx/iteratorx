@@ -108,9 +108,12 @@ Provide jdbc driver for Mysql, Postgresql, Hive, Sqlite and Derby.
 
 ### v1.0.2
 Add Parallels as Threads, Flink, RxJava.
+
 Remove jdbc driver for Hive.
 
 ### v1.0.3
+Set default parallelism as 3 times of available processors.
+
 Fix bugs.
 
 
