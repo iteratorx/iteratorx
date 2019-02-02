@@ -7,6 +7,7 @@ Readers can iteratively read data into json objects, including JdbcReader and Fi
 ### 1.1. JdbcReader: read jdbc table rows into json objects
 
 Read each jdbc Table Row into JSONObject iteratively.
+
 We provide jdbc driver for Mysql, Postgresql, Sqlite and Derby. You may download drivers for Oracle, Sqlserver, DB2, Hive and others by yourself.
 
 ```	
@@ -110,6 +111,6 @@ Add Parallels as Threads, Flink, RxJava.
 Remove jdbc driver for Hive.
 
 ### v1.0.3
-Fix bugs
+Fix bugs.
 
 
