@@ -67,7 +67,7 @@ public abstract class DataSourceBuilder {
 					try {
 						final String url = properties.getProperty("url");
 
-						final String driver = DbUtils.getDriver(url, properties.getProperty("driver"));
+						final String driver = IOUtils.getDriver(url, properties.getProperty("driver"));
 						Class.forName(driver);
 
 						final int loginTimeout = properties.get("loginTimeout") == null ? 60

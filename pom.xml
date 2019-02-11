@@ -4,7 +4,7 @@
 
 	<groupId>io.iteratorx</groupId>
 	<artifactId>iteratorx</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.3</version>
 
 	<name>IteratorX</name>
 	<description>simplest iterator for IO.</description>

@@ -59,6 +59,15 @@ public class JdbcReader {
 		return results;
 	}
 
+	/**
+	 * Read each jdbc Table Row into JSONObject iteratively.
+	 * 
+	 * NOTICE: thread-unsafe using result Iterable object!
+	 * 
+	 * @param sql
+	 * @param parameters
+	 * @return thread-unsafe using result Iterable object
+	 */
 	public Iterable<JSONObject> read(final String sql, final Object... parameters) {
 
 		// query batch
@@ -78,7 +87,7 @@ public class JdbcReader {
 			columnMetaData = parseColumnMetaData(rs.getMetaData());
 
 		} catch (final SQLException e) {
-			DbUtils.close(rs, ps, conn);
+			IOUtils.close(rs, ps, conn);
 
 			throw new RuntimeException(e);
 		}
@@ -135,7 +144,7 @@ public class JdbcReader {
 
 					@Override
 					public void close() {
-						DbUtils.close(rs, ps, conn);
+						IOUtils.close(rs, ps, conn);
 						hasNext = false;
 					}
 				};

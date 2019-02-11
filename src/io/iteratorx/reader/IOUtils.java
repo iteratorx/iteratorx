@@ -1,5 +1,7 @@
 package io.iteratorx.reader;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,8 +10,8 @@ import java.util.logging.Logger;
 
 import com.google.common.base.Throwables;
 
-public class DbUtils {
-	private static final Logger logger = Logger.getLogger(DbUtils.class.getName());
+public class IOUtils {
+	private static final Logger logger = Logger.getLogger(IOUtils.class.getName());
 
 	public static String getDriver(String url, final String driver) {
 		if (driver != null) {
@@ -61,6 +63,14 @@ public class DbUtils {
 			} catch (final SQLException e) {
 				logger.warning(Throwables.getStackTraceAsString(e));
 			}
+		}
+	}
+
+	public static void close(final Reader reader) {
+		try {
+			reader.close();
+		} catch (final IOException e) {
+			logger.warning(Throwables.getStackTraceAsString(e));
 		}
 	}
 }
