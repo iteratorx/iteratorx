@@ -62,11 +62,8 @@ public class JdbcReader {
 	/**
 	 * Read each jdbc Table Row into JSONObject iteratively.
 	 * 
-	 * NOTICE: thread-unsafe using result Iterable object!
+	 * NOTICE: thread-unsafe: do not use result Iterable in multi-threads!
 	 * 
-	 * @param sql
-	 * @param parameters
-	 * @return thread-unsafe using result Iterable object
 	 */
 	public Iterable<JSONObject> read(final String sql, final Object... parameters) {
 

@@ -29,11 +29,8 @@ public class FileReader {
 	/**
 	 * Read each file content line into JSONObject iteratively.
 	 * 
-	 * NOTICE: thread-unsafe using result Iterable object!
+	 * NOTICE: thread-unsafe: do not use result Iterable in multi-threads!
 	 * 
-	 * @param sql
-	 * @param parameters
-	 * @return thread-unsafe for result Iterable object
 	 */
 	public <T> Iterable<T> read(final File file, final String charset, final Function<String, T> function) {
 
@@ -112,11 +109,8 @@ public class FileReader {
 	/**
 	 * Read each file content line into JSONObject iteratively.
 	 * 
-	 * NOTICE: thread-unsafe using result Iterable object!
+	 * NOTICE: thread-unsafe: do not use result Iterable in multi-threads!
 	 * 
-	 * @param sql
-	 * @param parameters
-	 * @return thread-unsafe for result Iterable object
 	 */
 	public Iterable<JSONObject> read(final File file, final String charset) {
 		return read(file, charset, (s) -> {
