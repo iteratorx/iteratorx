@@ -28,9 +28,24 @@ We provide jdbc driver for Mysql, Postgresql, Sqlite and Derby. You may download
 	}
 ```
 ### 1.2. FileReader: read file content lines into json objects
-todo
 
+Read each file content line into JSONObject iteratively.
 
+```	
+	// create file reader
+	final FileReader fileReader = new FileReader();
+
+	// fetch by iterable
+	for (final JSONObject item : fileReader.read(new File("data.json"), "utf-8")) {
+		System.err.println(item);
+	}
+
+	// fetch all into one collection
+	final Collection<JSONObject> items = fileReader.readAll(new File("data.json"), "utf-8");
+	for (final JSONObject item : items) {
+		System.err.println(item);
+	}
+```
 ## 2. Parallels: Threads, Flink, RxJava
 
 As we always need to process data in parallel, we support many parallels engines: Threads(ThreadPool), Flink and RxJava.
@@ -115,5 +130,9 @@ Remove jdbc driver for Hive.
 Set default parallelism as 3 times of available processors.
 
 Fix bugs.
+
+### v1.0.4
+Add FileReader
+
 
 
