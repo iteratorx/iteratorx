@@ -112,7 +112,7 @@ Known issues: the RxJava will not quit automatically when processing data finish
 	// use Observable directly
 	RxJava.from(jdbcReader.read("select * from tablename")).observable().distinct().count();
 ```
-----------------------------------------
+
 ## 3. Release Notes
 
 ### v1.0.0
@@ -134,5 +134,14 @@ Fix bugs.
 ### v1.0.4
 Add FileReader
 
-
+------------------------------------------
+## Appendix. Maven Usage
+```
+	<!-- https://mvnrepository.com/artifact/io.iteratorx/iteratorx -->
+	<dependency>
+	    <groupId>io.iteratorx</groupId>
+	    <artifactId>iteratorx</artifactId>
+	    <version>1.0.4</version>
+	</dependency>
+```
 
