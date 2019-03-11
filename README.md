@@ -22,7 +22,7 @@ We provide jdbc driver for Mysql, Postgresql, Sqlite and Derby. You may download
 	}
 	
 	// fetch all into one collection
-	final Collection<JSONObject> items = jdbcReader.readAll("select * from tablename where id = ?", param);
+	final Collection<JSONObject> items = jdbcReader.readAll("select * from tablename where type = ?", param);
 	for (final JSONObject item : items) {
 		System.err.println(item);
 	}
