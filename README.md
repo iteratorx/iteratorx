@@ -135,7 +135,8 @@ Fix bugs.
 Add FileReader
 
 ------------------------------------------
-## Appendix. Maven Usage
+## Appendix. 
+Maven Usage
 ```
 	<!-- https://mvnrepository.com/artifact/io.iteratorx/iteratorx -->
 	<dependency>
