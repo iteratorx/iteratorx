@@ -19,7 +19,7 @@ public class JdbcWriterUsage {
 
 		// write batch by iterable
 		final Iterable<JSONObject> iter = jdbcWriter.asJdbcReader().read("select name, type from tablename");
-		jdbcWriter.executeBatch("insert into tablename values(?, ?)", iter);
+		jdbcWriter.executeBatch("insert into tablename(name, type) values(?, ?)", iter);
 
 	}
 }
