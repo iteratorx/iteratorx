@@ -125,7 +125,7 @@ public class JdbcReader {
 					@Override
 					public JSONObject next() {
 						try {
-							final JSONObject data = new JSONObject();
+							final JSONObject data = new JSONObject(true);
 							for (final String column : getColumnMetaData().keySet()) {
 								data.put(column, rs.getObject(column));
 							}
@@ -165,4 +165,7 @@ public class JdbcReader {
 		return metadata;
 	}
 
+	public JdbcWriter asJdbcWriter() {
+		return new JdbcWriter(this.dataSource);
+	}
 }
