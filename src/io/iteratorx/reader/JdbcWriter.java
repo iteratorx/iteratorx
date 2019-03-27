@@ -50,7 +50,6 @@ public class JdbcWriter {
 		try {
 
 			conn = dataSource.getConnection();
-			conn.setAutoCommit(false);
 			ps = conn.prepareStatement(sql);
 			for (int i = 0; i < parameters.length; i++) {
 				ps.setObject(i + 1, parameters[i]);
@@ -72,7 +71,6 @@ public class JdbcWriter {
 
 		try {
 			conn = dataSource.getConnection();
-			conn.setAutoCommit(false);
 			ps = conn.prepareStatement(sql);
 			for (final Object[] record : records) {
 				for (int i = 0; i < record.length; i++) {
@@ -125,12 +123,17 @@ public class JdbcWriter {
 	 *            select values from each JSONObject
 	 */
 	public int[][] executeBatch(final String sql, final Iterable<JSONObject> records, final String... mappingKeys) {
-		final Iterator<JSONObject> iterator = records.iterator();
 		return executeBatch(sql, new Iterable<Object[]>() {
 
 			@Override
 			public Iterator<Object[]> iterator() {
+				final Iterator<JSONObject> iterator = records.iterator();
 				return new Iterator<Object[]>() {
+
+					@Override
+					public boolean hasNext() {
+						return iterator.hasNext();
+					}
 
 					@Override
 					public Object[] next() {
@@ -143,11 +146,6 @@ public class JdbcWriter {
 							next.add(record.get(value));
 						}
 						return next.toArray();
-					}
-
-					@Override
-					public boolean hasNext() {
-						return iterator.hasNext();
 					}
 				};
 			}
