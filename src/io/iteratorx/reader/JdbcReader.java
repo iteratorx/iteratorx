@@ -152,7 +152,7 @@ public class JdbcReader {
 	}
 
 	protected JSONObject parseColumnMetaData(final ResultSetMetaData resultSetMetaData) throws SQLException {
-		final JSONObject metadata = new JSONObject();
+		final JSONObject metadata = new JSONObject(true);
 
 		for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
 			final JSONObject columnMetaData = new JSONObject();
