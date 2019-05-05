@@ -46,13 +46,20 @@ Read each file content line into JSONObject iteratively.
 		System.err.println(item);
 	}
 ```
-## 2. Parallels: Threads, Flink, RxJava
+## 2. Writer: JdbcWriter, FileWriter
+
+Writers can iteratively write data from json objects, including JdbcWriter and FileWriter.
+
+### 2.1. JdbcWriter: write jdbc table rows from json objects
+### 2.2. FileWriter: write file content lines from json objects
+```
+## 3. Parallels: Threads, Flink, RxJava
 
 As we always need to process data in parallel, we support many parallels engines: Threads(ThreadPool), Flink and RxJava.
 
 NOTICE: all parallels engines support not only JSONObject but other Parametized types, just try it.
 
-### 2.1. Threads: using ThreadPool to process data in parallel
+### 3.1. Threads: using ThreadPool to process data in parallel
 
 Fixed-size thread pool are used to process data in multi-threads, the default thread size is the 3 times of available processors.
 
@@ -69,7 +76,7 @@ Fixed-size thread pool are used to process data in multi-threads, the default th
 		}
 	});
 ```
-### 2.2. Flink: using Flink to process data in parallel
+### 3.2. Flink: using Flink to process data in parallel
 
 Flink can run in both standalone local mode and remote cluster mode, this is fantastic to debug and execute. We prefer using Flink engine to process big data in parallel. The default parallelism is the 3 times of available processors.
 
@@ -90,7 +97,7 @@ Flink can run in both standalone local mode and remote cluster mode, this is fan
 	Flink.from(jdbcReader.read("select * from tablename")).dataSet().distinct().count();
 	
 ```
-### 2.3. RxJava: using RxJava to process data in parallel
+### 3.3. RxJava: using RxJava to process data in parallel
 
 We also support RxJava engine, the default parallelism is the 3 times of available processors.
 
@@ -113,7 +120,7 @@ Known issues: the RxJava will not quit automatically when processing data finish
 	RxJava.from(jdbcReader.read("select * from tablename")).observable().distinct().count();
 ```
 
-## 3. Release Notes
+## 4. Release Notes
 
 ### v1.0.0
 Add JdbcReader.
@@ -133,6 +140,9 @@ Fix bugs.
 
 ### v1.0.4
 Add FileReader
+
+### v1.0.5
+Add JdbcWriter
 
 ------------------------------------------
 
