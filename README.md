@@ -51,8 +51,9 @@ Read each file content line into JSONObject iteratively.
 Writers can iteratively write data from json objects, including JdbcWriter and FileWriter.
 
 ### 2.1. JdbcWriter: write jdbc table rows from json objects
+
 ### 2.2. FileWriter: write file content lines from json objects
-```
+
 ## 3. Parallels: Threads, Flink, RxJava
 
 As we always need to process data in parallel, we support many parallels engines: Threads(ThreadPool), Flink and RxJava.
