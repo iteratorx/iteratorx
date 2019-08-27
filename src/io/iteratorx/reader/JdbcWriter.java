@@ -59,9 +59,10 @@ public class JdbcWriter {
 			return ps.executeUpdate();
 
 		} catch (final SQLException e) {
-			IOUtils.close(rs, ps, conn);
-
 			throw new RuntimeException(e);
+
+		} finally {
+			IOUtils.close(rs, ps, conn);
 		}
 	}
 
@@ -83,9 +84,10 @@ public class JdbcWriter {
 			return ps.executeBatch();
 
 		} catch (final SQLException e) {
-			IOUtils.close(rs, ps, conn);
-
 			throw new RuntimeException(e);
+
+		} finally {
+			IOUtils.close(rs, ps, conn);
 		}
 	}
 
@@ -120,7 +122,7 @@ public class JdbcWriter {
 	 * @param records
 	 *            each JSONOjbect contains all values for one record
 	 * @param mappingKeys
-	 *            select values from each JSONObject
+	 *            select values by key from each JSONObject
 	 */
 	public int[][] executeBatch(final String sql, final Iterable<JSONObject> records, final String... mappingKeys) {
 		return executeBatch(sql, new Iterable<Object[]>() {
